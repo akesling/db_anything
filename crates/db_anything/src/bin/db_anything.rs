@@ -124,6 +124,10 @@ struct ServePgOptions {
     #[arg(long, default_value = "tbl")]
     table_name: String,
 
+    /// Enable the fs() table function for filesystem access
+    #[arg(long)]
+    enable_fs: bool,
+
     /// Serving address
     #[arg(default_value = "127.0.0.1:5432")]
     address: String,
@@ -137,7 +141,7 @@ async fn serve_pg(context: &GlobalOptions, options: &ServePgOptions) -> Result<(
     let mut engine = db_anything::engine::Core::new(context.memory_pool_bytes)?
         .add_direct_csv_table(&options.table_name, &options.csv)
         .await?;
-    let join_handle = engine.serve_pg(&options.address).await?;
+    let join_handle = engine.serve_pg(&options.address, options.enable_fs).await?;
     join_handle.await?
 }
 

@@ -101,6 +101,7 @@ impl Core {
     pub async fn serve_pg(
         &mut self,
         serve_address: &str,
+        enable_fs: bool,
     ) -> anyhow::Result<tokio::task::JoinHandle<anyhow::Result<()>>> {
         log::debug!("Starting up a new server");
 
@@ -111,6 +112,14 @@ impl Core {
         )?;
         self.context
             .register_udf(providers::haiku::udf::RandomHaiku::as_scalar_udf());
+
+        // Register fs() table function if enabled
+        if enable_fs {
+            self.context.register_udtf(
+                "fs",
+                Arc::new(providers::filesystem::FilesystemListingFunction {}),
+            );
+        }
 
         let listener = tokio::net::TcpListener::bind(serve_address)
             .await
