@@ -1,0 +1,30 @@
+[package]
+name = "db_anything"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { workspace = true }
+arrow = { workspace = true }
+chrono = { workspace = true }
+clap = { workspace = true }
+datafusion = { workspace = true }
+datafusion-postgres = { workspace = true }
+futures = { workspace = true }
+itertools = { workspace = true }
+log = { workspace = true }
+object_store = { version = "0.11", features = ["aws"] }
+pgwire = { workspace = true }
+pretty_assertions = { workspace = true }
+rand = { workspace = true }
+regex = { workspace = true }
+schemars = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+simplelog = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+url = { workspace = true }
+
+providers = { workspace = true }
