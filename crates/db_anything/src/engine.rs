@@ -103,6 +103,15 @@ impl Core {
         serve_address: &str,
     ) -> anyhow::Result<tokio::task::JoinHandle<anyhow::Result<()>>> {
         log::debug!("Starting up a new server");
+
+        // Register haiku table and UDF
+        self.context.register_table(
+            "haikus",
+            Arc::new(providers::haiku::HaikuTableProvider::new()),
+        )?;
+        self.context
+            .register_udf(providers::haiku::udf::RandomHaiku::as_scalar_udf());
+
         let listener = tokio::net::TcpListener::bind(serve_address)
             .await
             .context(format!("run_server failed to bind to {serve_address}"))?;

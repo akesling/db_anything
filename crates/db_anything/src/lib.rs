@@ -4,61 +4,9 @@ use anyhow::{anyhow, bail};
 
 pub mod engine;
 
-pub static HAIKUS: [[&str; 3]; 10] = [
-    [
-        "Logs, files, streams, and more—",
-        "All become queryable.",
-        "SQL for all.",
-    ],
-    [
-        "Dusty CSV?",
-        "Now a table you can join.",
-        "Data alchemy.",
-    ],
-    [
-        "Anything at all",
-        "Can answer to a query—",
-        "Just add SQL.",
-    ],
-    [
-        "No schema needed.",
-        "Point at chaos, ask questions.",
-        "Order emerges.",
-    ],
-    [
-        "Your filesystem",
-        "Becomes rows and columns now.",
-        "SELECT * FROM life.",
-    ],
-    [
-        "Unstructured data",
-        "Yearning to be understood—",
-        "We give it a voice.",
-    ],
-    [
-        "What was once opaque",
-        "Now responds to your queries.",
-        "Darkness becomes light.",
-    ],
-    [
-        "Every file hides",
-        "Tables waiting to be found.",
-        "We set them all free.",
-    ],
-    [
-        "Anything into",
-        "A DB with one command.",
-        "Power in your hands.",
-    ],
-    [
-        "Raw bytes, scattered files—",
-        "Through SQL's lens they shine.",
-        "Meaning crystallized.",
-    ],
-];
-
 /// Print a random project-related haiku
 pub fn print_haiku(print_all: bool) -> anyhow::Result<()> {
+    use providers::haiku::HAIKUS;
     use rand::seq::SliceRandom as _;
 
     if print_all {
